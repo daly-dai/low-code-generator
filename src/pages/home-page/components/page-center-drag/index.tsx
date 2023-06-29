@@ -2,6 +2,7 @@ import { FC, useCallback, useRef } from "react"
 import { Col, Form } from "antd"
 import { DragSourceMonitor, DropTargetMonitor, XYCoord, useDrag, useDrop } from "react-dnd"
 import { useSnapshot } from "valtio"
+import { CopyOutlined, DeleteOutlined } from "@ant-design/icons"
 
 import "./index.less"
 
@@ -112,6 +113,8 @@ const PageCenterDrag: FC<PageCenterDragProps> = ({ instance, index }) => {
 
   return (
     <Col span={24} ref={drag(drop(ref)) as any} className="dragContainer">
+      <CopyOutlined className="dragContainer-copy" />
+      <DeleteOutlined className="dragContainer-del" />
       <Form.Item>
         {instance.tag}
       </Form.Item>

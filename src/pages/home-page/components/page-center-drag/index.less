@@ -1,5 +1,20 @@
 .dragContainer {
   position: relative;
+
+  > span {
+    position: absolute;
+    top: -10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  &-copy {
+    right: 80px;
+  }
+
+  &-del {
+    right: 40px;
+  }
 }
 
 .dragContainer:hover {
