@@ -1,5 +1,5 @@
 
-import { FC } from "react"
+import { FC, } from "react"
 import { DragSourceMonitor, useDrag } from "react-dnd"
 import { useSnapshot } from "valtio"
 import { cloneDeep } from "lodash-es"
@@ -7,17 +7,13 @@ import { cloneDeep } from "lodash-es"
 import "./index.less"
 
 import formStore from "@/store/form"
-import { ComponentsConfig, ComponentsTagType } from "@/constants/generator/type"
-import componentsTagMap from "@/constants/generator/left-config"
+import { ComponentsConfig, ComponentsTagType } from "@/constants/lowCode-configuration/type"
+import componentsTagMap from "@/constants/lowCode-configuration/left-config"
 import { genNonDuplicateID } from "@/utils/tool"
 
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PageLeftDrag: FC<ComponentsConfig> = ({ config, tag }) => {
 
   const formState = useSnapshot(formStore.state);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { dropCardList } = formState
 
   const [{ isDragging }, drag, dragPreview] = useDrag(() => ({
@@ -25,12 +21,13 @@ const PageLeftDrag: FC<ComponentsConfig> = ({ config, tag }) => {
     item() {
       const useless = dropCardList.find((item: any) => item.id === -1);
       const currentComponents = cloneDeep(componentsTagMap[tag as ComponentsTagType])
+      const componentInstance = { ...currentComponents, id: -1 }
 
       if (!useless) {
         formState.dropCardList.unshift({ ...currentComponents, id: -1 })
       }
 
-      return { tag }
+      return componentInstance
     },
     end(_: unknown, monitor: DragSourceMonitor) {
       const uselessIndex = dropCardList.findIndex((item: any) => item.id === -1);
@@ -40,14 +37,15 @@ const PageLeftDrag: FC<ComponentsConfig> = ({ config, tag }) => {
        *  2、如果否，则将占位元素删除
        */
       if (monitor.didDrop()) {
-        const currentComponents = cloneDeep(componentsTagMap[tag as ComponentsTagType]);
+        const comInstance = monitor.getItem() as ComponentsConfig;
 
-        currentComponents["id"] = genNonDuplicateID();
+        comInstance["id"] = genNonDuplicateID();
 
-        dropCardList.splice(uselessIndex, 1, { ...currentComponents });
+        formState.dropCardList.splice(uselessIndex, 1, { ...comInstance });
+        return
       }
 
-      dropCardList.splice(uselessIndex, 1);
+      formState.dropCardList.splice(uselessIndex, 1);
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging()

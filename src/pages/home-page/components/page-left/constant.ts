@@ -1,5 +1,5 @@
-import inputComponents from "@/constants/generator/left-config/input-components";
-import selectComponents from "@/constants/generator/left-config/select-components";
+import inputComponents from "@/constants/lowCode-configuration/left-config/input-components";
+import selectComponents from "@/constants/lowCode-configuration/left-config/select-components";
 import { LeftComponentsType } from "../../types";
 
 // 左侧菜单栏
