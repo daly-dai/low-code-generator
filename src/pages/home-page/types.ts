@@ -1,4 +1,4 @@
-import { ComponentsConfig } from "@/constants/generator/type";
+import { ComponentsConfig } from "@/constants/lowCode-configuration/type";
 
 export type LeftComponentsType = {
   title: string;

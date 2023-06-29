@@ -1,11 +1,11 @@
 import { useDrop } from "react-dnd";
 import { useSnapshot } from "valtio";
-import { Form } from "antd";
+import { Form, Row } from "antd";
 
 import "./index.less"
 
 import formStore from "@/store/form";
-import { ComponentsConfig } from "@/constants/generator/type";
+import { ComponentsConfig } from "@/constants/lowCode-configuration/type";
 import PageCenterDrag from "../page-center-drag";
 
 
@@ -29,9 +29,11 @@ const PageCenter = () => {
 
   return (<div className="center" ref={drop}>
     <Form>
-      {dropCardList.map((comInstance: ComponentsConfig, index: number) => (
-        <PageCenterDrag index={index} key={comInstance.id} instance={comInstance}></PageCenterDrag>
-      ))}
+      <Row>
+        {dropCardList.map((comInstance: ComponentsConfig, index: number) => (
+          <PageCenterDrag index={index} key={comInstance.id} instance={comInstance}></PageCenterDrag>
+        ))}
+      </Row>
     </Form>
   </div>)
 }
