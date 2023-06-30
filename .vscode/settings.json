@@ -1,6 +1,13 @@
 {
   "cSpell.words": [
     "cascader",
+    "checkboxgroup",
+    "datepickerrange",
+    "inputnumber",
+    "radiogroup",
+    "timepickerrange",
+    "treeselect",
+    "uploaddragger",
     "watcherwatcher"
   ]
 }
